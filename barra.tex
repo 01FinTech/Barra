@@ -1,0 +1,178 @@
+%% Created by:  H. XU
+%% Date:        Dec 3, 2017
+%% Email:       78112407@qq.com
+
+%% ========================================================= %%
+%%      Note: all the files must be encoded in UTF8          %%
+%% ========================================================= %%
+
+\documentclass[a4paper, 11pt, UTF8]{report}
+
+\usepackage[boldfont, CJKnumber]{xeCJK}
+%%-----------------------------------------------------%%
+%% change the main font
+%%\setCJKmainfont[BoldFont=STHeiti, ItalicFont=STKaiti]{FZJSong-Z01S}
+\setCJKmainfont[BoldFont=STHeiti, ItalicFont=STKaiti]{STSong}
+%%-----------------------------------------------------%%
+\setCJKfamilyfont{FangSong}{STFangsong}
+\setCJKfamilyfont{HeiTi}{STHeiti}
+\setCJKfamilyfont{KaiShu}{STKaiti}
+\setCJKfamilyfont{YingBi}{STXingkai}
+\setCJKfamilyfont{SongTi}{STSong}
+\setCJKfamilyfont{WeiBei}{STXinwei}
+\setCJKfamilyfont{ZhongSong}{STZhongsong}
+%%-----------------------------------------------------%%
+\DeclareRobustCommand{\fangsong}{\CJKfamily{FangSong}}
+\DeclareRobustCommand{\heiti}{\CJKfamily{HeiTi}}
+\DeclareRobustCommand{\kaiti}{\CJKfamily{KaiShu}}
+\DeclareRobustCommand{\songti}{\CJKfamily{SongTi}}
+\DeclareRobustCommand{\yingbi}{\CJKfamily{YingBi}}
+\DeclareRobustCommand{\weibei}{\CJKfamily{WeiBei}}
+\DeclareRobustCommand{\zhongsong}{\CJKfamily{ZhongSong}}
+%%-----------------------------------------------------%%
+
+% =================================================================== %
+% Adjust the distance of the report
+% =================================================================== %
+
+% distance between lines
+% 这就是中文的1.5倍
+\renewcommand{\baselinestretch}{1.4}
+
+%% distance between paragraph
+\parskip 2mm
+
+%% 第一段空两格
+\usepackage{indentfirst}
+
+%% 每段段首空格
+\parindent 2.4em
+
+%% white, black, red, green, blue, cyan, magenta, yellow, brown
+\usepackage[]{color}
+\usepackage{xcolor} % Required for specifying colors by name
+
+%% insert picture
+\usepackage{graphics}
+\graphicspath{ {01Figures/} }
+
+%% insert code
+\usepackage{listings}
+
+\lstset{ %
+  backgroundcolor = \color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle = \footnotesize\ttfamily,         % the size of the fonts that are used for the code
+  breakatwhitespace = false,         % sets if automatic breaks should only happen at whitespace
+  breaklines = true,                 % sets automatic line breaking
+  captionpos = t,                    % sets the caption-position to bottom
+  commentstyle = \color{brown},    % comment style
+  deletekeywords = {...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame =single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language = python,                 % the language of the code
+  otherkeywords={*,...},           % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep = 5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{gray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber = 1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{blue},     % string literal style
+  tabsize = 4,	                   % sets default tabsize to 4 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+%% for math
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+%% ----------------------------------------------------------- %%
+%% main part
+%% ----------------------------------------------------------- %%
+\setcounter{part}{0}  %% 保证正文的 part chapter 从1 开始计数
+\setcounter{chapter}{0}
+
+%% ============================================================ %%
+
+
+\begin{document}
+
+\title{Barra CNE5}
+\author{
+        \sc{Denis Frederic} \\
+        \sc{Email}: \tt{78112407$@$qq.com}\\
+        \vspace{0.5\textheight} \phantom{phan}}
+
+\maketitle
+\newpage
+\pagestyle{empty}
+
+\begin{abstract}
+        本文根据 Barra CNE5 理论，结合国内情况，分析因子。
+        并以 Python 模拟实现。
+
+	目前的算法都是线性的。考虑非线性的？
+\end{abstract}
+
+
+
+\tableofcontents
+\newpage
+
+\pagestyle{plain}
+
+%% ----------------------------------------------------------- %%
+\chapter{介绍}
+%% ----------------------------------------------------------- %%
+
+
+根据这个模型，我们利用 Python 更新到 2017 年的最新数据。
+
+分析每个因子的风险及收益。
+
+梳理一下，barra 在干什么，理论背景？实证结合？
+
+主动管理就是预测！
+
+主动管理分为定性管理、定量管理。
+（TODO：比较优势、劣势）
+
+{\bf \underline{TODO 今天，以一个因子为例，先分析一下！！！}}
+
+为了以后行文方便，股票也是资产的一种。没有特别说明，资产就是代表股票。
+
+$$
+r_{i} = \sum^{K}_{j=1} w_{i j} \times e_j + u_i
+$$
+其中：\\
+$ x_{ij} $ 表示资产 $i$ 针对因子 $j$ 的权重;\\
+$u_i$ 表示资产 i 的残差收益率。
+
+基本面因子模型：基本面因子模型使用可观察到的股票自身的基本属性，比如分红比 例、估值水平、成长性、换手率等指标，作为股票市场收益率变动的主要解释变量。基 本面因子主要是进行横截面分析，确定股票收益率对因子的敏感性（Beta 值），基本面 因子一般可以归纳为基本面类、估值类、市场类。
+
+华泰证券 2016.09.21 《华泰多因子模型体系初探》
+
+风险的定义有方差、 半方差（semivariance）、下行风险（downside risk）、损失概 （shortfall probability）
+或在险价值（value at risk）。
+
+
+《证券组合定量管理》
+对定量管理总结的七条准则：
+
+
+《主动投资管理》
+
+对 N 只股票的评估（收益、风险）转化为 K 个因子的预测。
+
+流程：
+因子筛选、收益预测、风险预测、综合优化。
+
+
+
+\end{document}
